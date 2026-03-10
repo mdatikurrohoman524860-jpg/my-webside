@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="EXTREME EXE - Premium developer tools. Browse, search, and copy battle-tested code snippets across 10 languages.">
+  <title>EXTREME EXE | Premium Code Database</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+  <div id="particles-js"></div>
+
+  <header class="header">
+    <nav class="nav">
+      <a href="#home" class="logo">
+        <span class="logo-bracket">&lt;</span>EXTREME EXE<span class="logo-bracket">/&gt;</span>
+        <span class="logo-badge">PREMIUM v1.0</span>
+      </a>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#methods">Methods</a>
+        <a href="#admin" id="admin-link" class="hidden">Admin</a>
+      </div>
+      <button class="menu-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-content" data-aos="fade-up">
+        <h1 class="hero-title">
+          <span class="glow-text">EXTREME</span>
+          <span class="glow-text accent">EXE</span>
+        </h1>
+        <p class="hero-subtitle">
+          Premium code database across 10 languages. Browse, search, and copy battle-tested snippets. Built for developers who ship.
+        </p>
+        <div class="search-wrapper hero-search" data-aos="fade-up" data-aos-delay="100">
+          <input type="text" id="main-search" class="search-input" placeholder="Search methods... (press / to focus)" autocomplete="off">
+          <span class="search-icon">⌕</span>
+          <div class="search-glow"></div>
+        </div>
+        <div class="category-filters" data-aos="fade-up" data-aos-delay="150">
+          <button class="filter-btn active" data-category="all">All</button>
+          <button class="filter-btn" data-category="python">Python</button>
+          <button class="filter-btn" data-category="csharp">C#</button>
+          <button class="filter-btn" data-category="cpp">C++</button>
+          <button class="filter-btn" data-category="java">Java</button>
+          <button class="filter-btn" data-category="javascript">JavaScript</button>
+          <button class="filter-btn" data-category="typescript">TypeScript</button>
+          <button class="filter-btn" data-category="go">Go (Golang)</button>
+          <button class="filter-btn" data-category="rust">Rust</button>
+          <button class="filter-btn" data-category="kotlin">Kotlin</button>
+          <button class="filter-btn" data-category="swift">Swift</button>
+        </div>
+      </div>
+      <div class="scroll-indicator">
+        <span>Scroll</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <section id="methods" class="methods-section">
+      <div class="container">
+        <div class="stats-banner" data-aos="fade-up">
+          <div class="stat-item"><span id="stat-count">0</span> Methods</div>
+          <div class="stat-item"><span>10</span> Languages</div>
+        </div>
+        <h2 class="section-title" data-aos="fade-up">
+          <span class="section-title-line"></span>
+          Featured Methods
+        </h2>
+        <p class="section-subtitle" data-aos="fade-up" data-aos-delay="50">
+          Click "View Method" to see full code and copy to clipboard
+        </p>
+        <div id="methods-grid" class="methods-grid">
+          <!-- Method cards injected by JS -->
+          <div id="methods-loading" class="loading-state">
+            <div class="loader"></div>
+            <p>Loading methods...</p>
+          </div>
+          <div id="methods-empty" class="empty-state hidden">
+            <p>No methods match your search.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Method Detail Modal (Implementation View) -->
+  <div id="method-modal" class="modal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content glass-card implementation-view">
+      <button class="modal-close" aria-label="Close">&times;</button>
+      <a href="#" class="return-to-library" id="return-to-library">← Return to Library</a>
+      <div class="modal-body">
+        <h2 class="impl-heading">Specific Implementation</h2>
+        <div class="impl-title-row">
+          <h3 id="modal-impl-logic" class="impl-logic"></h3>
+          <h3 id="modal-method-name" class="impl-name"></h3>
+        </div>
+        <button type="button" class="impl-copy-all" id="modal-copy-btn">
+          <span class="copy-icon">📋</span>
+          <span class="copy-text">COPY CODE</span>
+          <span class="copy-done hidden">Copied!</span>
+        </button>
+        <section class="impl-section">
+          <h4 class="impl-section-title">Method Overview</h4>
+          <p id="modal-method-desc" class="impl-overview"></p>
+        </section>
+        <section class="impl-section" id="impl-ui-req-section">
+          <h4 class="impl-section-title">UI Requirements</h4>
+          <ul id="modal-ui-requirements" class="impl-list"></ul>
+        </section>
+        <section class="impl-section" id="impl-deps-section">
+          <h4 class="impl-section-title">Logic Dependencies</h4>
+          <ul id="modal-dependencies" class="impl-deps-list"></ul>
+        </section>
+        <section class="impl-section" id="impl-note-section">
+          <h4 class="impl-section-title">Implementation Note</h4>
+          <p id="modal-implementation-note" class="impl-note"></p>
+        </section>
+        <div id="modal-code-blocks" class="impl-code-blocks">
+          <!-- Code blocks injected by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden Admin Panel -->
+  <section id="admin" class="admin-section hidden">
+    <div class="container">
+      <div id="admin-login" class="admin-login glass-card">
+        <h2>Admin Login</h2>
+        <input type="password" id="admin-password" class="admin-input" placeholder="Enter admin password">
+        <button type="button" id="admin-login-btn" class="btn-primary">Login</button>
+        <p id="admin-login-error" class="error-msg hidden"></p>
+      </div>
+      <div id="admin-panel" class="admin-panel hidden">
+        <div class="admin-header">
+          <h2>Manage Methods</h2>
+          <button type="button" id="admin-logout" class="btn-secondary">Logout</button>
+        </div>
+        <div class="admin-form glass-card">
+          <h3 id="admin-form-title">Add New Method</h3>
+          <input type="text" id="admin-method-name" class="admin-input" placeholder="Method Name">
+          <input type="text" id="admin-method-desc" class="admin-input" placeholder="Short Description">
+          <select id="admin-method-category" class="admin-input">
+            <option value="python">Python</option>
+            <option value="csharp" selected>C#</option>
+            <option value="cpp">C++</option>
+            <option value="java">Java</option>
+            <option value="javascript">JavaScript</option>
+            <option value="typescript">TypeScript</option>
+            <option value="go">Go (Golang)</option>
+            <option value="rust">Rust</option>
+            <option value="kotlin">Kotlin</option>
+            <option value="swift">Swift</option>
+          </select>
+          <textarea id="admin-method-code" class="admin-textarea" placeholder="Full C# code..." rows="12"></textarea>
+          <div class="admin-form-actions">
+            <button type="button" id="admin-save-btn" class="btn-primary">Save Method</button>
+            <button type="button" id="admin-cancel-btn" class="btn-secondary hidden">Cancel Edit</button>
+          </div>
+          <p id="admin-status" class="admin-status"></p>
+        </div>
+        <div id="admin-methods-list" class="admin-methods-list"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>EXTREME EXE — Premium Code Database · Built for developers</p>
+    <a href="#admin" class="footer-admin-link">Admin</a>
+  </footer>
+
+  <!-- Back to top -->
+  <button id="back-to-top" class="back-to-top" aria-label="Back to top">↑</button>
+
+  <!-- Toast -->
+  <div id="toast" class="toast">Copied to clipboard!</div>
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
